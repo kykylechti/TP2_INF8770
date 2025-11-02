@@ -71,7 +71,7 @@ def ssim(img1, img2, K1=0.01, K2=0.03, L=255, window_size=11, sigma=1.5):
     
     return ssim_map.mean()
 
-images = ["Type-B/EarthMoon-browse.jpg", "Type-A/kodim03.png"]
+images = ["Type-A/kodim03.png"]
 
 for img_path in images:
     image = Image.open(img_path).convert("L")
@@ -85,34 +85,34 @@ for img_path in images:
     HL = dwt_result[h//2:, :w//2]
     HH = dwt_result[h//2:, w//2:]
 
-    fig, axs = plt.subplots(1, 5, figsize=(16, 4))
-    axs[0].imshow(img_array, cmap='gray')
-    axs[0].set_title("Image originale")
-    axs[0].axis('off')
+    # fig, axs = plt.subplots(1, 5, figsize=(16, 4))
+    # axs[0].imshow(img_array, cmap='gray')
+    # axs[0].set_title("Image originale")
+    # axs[0].axis('off')
 
-    axs[1].imshow(LL, cmap='gray')
-    axs[1].set_title("LL (basses fréquences)")
-    axs[1].axis('off')
+    # axs[1].imshow(LL, cmap='gray')
+    # axs[1].set_title("LL (basses fréquences)")
+    # axs[1].axis('off')
 
-    axs[2].imshow(LH, cmap='gray')
-    axs[2].set_title("LH (détails horizontaux)")
-    axs[2].axis('off')
+    # axs[2].imshow(LH, cmap='gray')
+    # axs[2].set_title("LH (détails horizontaux)")
+    # axs[2].axis('off')
 
-    axs[3].imshow(HL, cmap='gray')
-    axs[3].set_title("HL (détails verticaux)")
-    axs[3].axis('off')
+    # axs[3].imshow(HL, cmap='gray')
+    # axs[3].set_title("HL (détails verticaux)")
+    # axs[3].axis('off')
 
-    axs[4].imshow(HH, cmap='gray')
-    axs[4].set_title("HH (détails diagonaux)")
-    axs[4].axis('off')
+    # axs[4].imshow(HH, cmap='gray')
+    # axs[4].set_title("HH (détails diagonaux)")
+    # axs[4].axis('off')
 
-    plt.suptitle(f"Décomposition DWT (Haar) : {img_path}")
-    plt.tight_layout()
-    plt.show()
+    # plt.suptitle(f"Décomposition DWT (Haar) : {img_path}")
+    # plt.tight_layout()
+    # plt.show()
     print(dwt_result)
 
-    q_dwt = deadzone_quantization(dwt_result, delta=5, threshold=15)
-    dq_dwt = deadzone_dequantization(q_dwt, delta=5, threshold=15)
+    q_dwt = deadzone_quantization(dwt_result, delta=2, threshold=5)
+    dq_dwt = deadzone_dequantization(q_dwt, delta=2, threshold=5)
 
     reconstructed_image = haar_revert_dwt(dq_dwt)
 
